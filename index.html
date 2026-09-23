@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #222;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        main {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 26px;
+            margin-bottom: 25px;
+        }
+
+        form {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 25px;
+        }
+
+        .nota {
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 9px;
+            border: 1px solid #bbb;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 9px 18px;
+            border: none;
+            border-radius: 3px;
+            background-color: #444;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        #resultado {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: white;
+            border: 1px solid #ddd;
+            display: none;
+        }
+
+        #resultado p {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Notas</h1>
+
+        <form id="formulario">
+            <div class="nota">
+                <label for="nota1">Nota 1</label>
+                <input type="number" id="nota1" min="0" max="10" step="0.1">
+            </div>
+
+            <div class="nota">
+                <label for="nota2">Nota 2</label>
+                <input type="number" id="nota2" min="0" max="10" step="0.1">
+            </div>
+
+            <div class="nota">
+                <label for="nota3">Nota 3</label>
+                <input type="number" id="nota3" min="0" max="10" step="0.1">
+            </div>
+
+            <div class="nota">
+                <label for="nota4">Nota 4</label>
+                <input type="number" id="nota4" min="0" max="10" step="0.1">
+            </div>
+
+            <div class="nota">
+                <label for="nota5">Nota 5</label>
+                <input type="number" id="nota5" min="0" max="10" step="0.1">
+            </div>
+
+            <button type="submit">Calcular</button>
+        </form>
+
+        <div id="resultado">
+            <p>Média: <span id="media"></span></p>
+            <p>Maior nota: <span id="maior"></span></p>
+            <p>Menor nota: <span id="menor"></span></p>
+        </div>
+    </main>
+
+    <script>
+        const formulario = document.getElementById("formulario");
+        const resultado = document.getElementById("resultado");
+
+        formulario.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let notas = [];
+            let soma = 0;
+
+            for (let i = 1; i <= 5; i++) {
+                let campo = document.getElementById("nota" + i);
+
+                if (campo.value === "") {
+                    alert("Preencha todas as notas.");
+                    return;
+                }
+
+                notas.push(Number(campo.value));
+            }
+
+            for (let i = 0; i < notas.length; i++) {
+                soma += notas[i];
+            }
+
+            let media = soma / notas.length;
+            let maior = notas[0];
+            let menor = notas[0];
+
+            for (let i = 1; i < notas.length; i++) {
+                if (notas[i] > maior) {
+                    maior = notas[i];
+                }
+
+                if (notas[i] < menor) {
+                    menor = notas[i];
+                }
+            }
+
+            document.getElementById("media").textContent = media.toFixed(2);
+            document.getElementById("maior").textContent = maior;
+            document.getElementById("menor").textContent = menor;
+
+            resultado.style.display = "block";
+        });
+    </script>
+</body>
+</html>
+```
